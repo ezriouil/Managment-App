@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Home">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/mySearchView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_button"
+        android:backgroundTint="#00BCA6"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:iconifiedByDefault="false"
+        app:queryHint="Enter quelle que chose ..." />
+
+    <HorizontalScrollView
+        android:id="@+id/myScrollView"
+        android:layout_below="@id/mySearchView"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                app:checkedIconTint="@color/ic_launcher_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="all Client In List"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                app:chipCornerRadius="8dp"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="10 Client In List"
+                app:rippleColor="@color/ic_launcher_background"
+                app:chipCornerRadius="8dp"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 Client In List"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                app:rippleColor="@color/ic_launcher_background"
+                app:chipCornerRadius="8dp"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="30 Client In List"
+                app:rippleColor="@color/ic_launcher_background"
+                app:chipCornerRadius="8dp"
+                />
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_below="@id/myScrollView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:shimmer_auto_start="true">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+            <include layout="@layout/item_rv_client"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeRV"
+        android:layout_below="@id/myScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:listitem="@layout/item_rv_client"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/homeBtnAddNew"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="500dp"
+        android:background="@drawable/bg_dialog_theme"
+        android:backgroundTint="#00BCA6"
+        android:padding="10dp"
+        android:src="@drawable/icon_show" />
+</RelativeLayout>

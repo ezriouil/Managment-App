@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_theme"
+    android:id="@+id/bottom_sheet_login"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SVP !!  ENTRY VOTRE COMMANDES "
+        android:gravity="center"
+        android:fontFamily="@font/black"
+        android:textColor="@color/black"
+        android:textSize="15sp"/>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextSizeOfCommand"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:focusable="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:hint="0123456789"
+        android:fontFamily="@font/black"
+        android:textColor="@color/black"
+        android:textSize="15sp"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnCommand"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:text="Commander"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/btnShowHistoryOfCommand"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:text="Afficher L'historie"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@color/white"/>
+</LinearLayout>
