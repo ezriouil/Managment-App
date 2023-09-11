@@ -2,7 +2,6 @@ package www.ezriouil.companymanagment.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -30,9 +30,10 @@ import www.ezriouil.companymanagment.viewModels.ClientViewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class Home : AppCompatActivity() , Listener{
-    private lateinit var clientRV:ClientRV
+class Home : AppCompatActivity(), Listener {
+    private lateinit var clientRV: ClientRV
     private lateinit var binding: HomeBinding
+
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = HomeBinding.inflate(layoutInflater)
@@ -41,7 +42,7 @@ class Home : AppCompatActivity() , Listener{
         shimmerEffect()
         observeData()
         binding.homeBtnAddNew.setOnClickListener {
-            startActivity(Intent(this,AddNew::class.java))
+            startActivity(Intent(this, AddNew::class.java))
         }
     }
 
@@ -53,13 +54,14 @@ class Home : AppCompatActivity() , Listener{
         }, 5000)
     }
 
-    private fun observeData(){
+    private fun observeData() {
         val clientViewModel = ViewModelProvider(this)[ClientViewModel::class.java]
-        clientViewModel.allData().observe(this){ listOfData ->
-            clientRV = ClientRV(this,this)
+        clientViewModel.allData().observe(this) { listOfData ->
+            clientRV = ClientRV(this, this)
             binding.homeRV.adapter = clientRV
             clientRV.updateDate(listOfData)
-
+            search(listOfData)
+            /*
             binding.chipAll.setOnClickListener {
                 clientRV.updateDate(listOfData)
                 search(listOfData)
@@ -79,9 +81,7 @@ class Home : AppCompatActivity() , Listener{
                 clientRV.updateDate(data)
                 search(data)
             }
-
-
-
+            */
         }
     }
 
@@ -105,31 +105,38 @@ class Home : AppCompatActivity() , Listener{
     }
 
     @SuppressLint("MissingInflatedId")
-    override fun sendOrder(client : Client) {
+    override fun sendOrder(client: Client) {
         val firebase = Firebase.database
-        val firebaseDatabase  = firebase.getReference(Constants.ORDERS).child(client.id!!).push()
-        val alertDialog = AlertDialog.Builder(this,R.style.bottomSheetStyle).create()
-        val view = layoutInflater.inflate(R.layout.alert_order,null)
+        val firebaseDatabase = firebase.getReference(Constants.ORDERS).child(client.id!!).push()
+        val alertDialog = AlertDialog.Builder(this, R.style.bottomSheetStyle).create()
+        val view = layoutInflater.inflate(R.layout.alert_order, null)
         val command = view.findViewById<AppCompatEditText>(R.id.editTextSizeOfCommand)
         val btnCommand = view.findViewById<Button>(R.id.btnCommand)
         val btnShowHistoryOfCommand = view.findViewById<Button>(R.id.btnShowHistoryOfCommand)
         btnCommand.setOnClickListener {
-            if (command.text!!.isNotBlank()){
-                val time = "${LocalDate.now().year}/${LocalDate.now().monthValue}/${LocalDate.now().dayOfMonth} ${LocalDateTime.now().hour+1}:${LocalDateTime.now().minute}:${LocalDateTime.now().second}"
+            if (command.text!!.isNotBlank()) {
+                val time =
+                    "${LocalDate.now().year}/${LocalDate.now().monthValue}/${LocalDate.now().dayOfMonth} ${LocalDateTime.now().hour + 1}:${LocalDateTime.now().minute}:${LocalDateTime.now().second}"
                 val totalOfItems = command.text.toString().toInt() * client.price!!
-                val order = Order(firebaseDatabase.key!!,command.text.toString().toInt(),totalOfItems,time)
+                val order = Order(
+                    firebaseDatabase.key!!,
+                    command.text.toString().toInt(),
+                    totalOfItems,
+                    time
+                )
                 firebaseDatabase.setValue(order).addOnSuccessListener {
                     val newTotal = client.total!! + totalOfItems
-                    val updateClient = Client(client.id!!,client.name!!,client.price!!,newTotal,client.phone!!)
+                    val updateClient =
+                        Client(client.id!!, client.name!!, client.price!!, newTotal, client.phone!!)
                     firebase.getReference(Constants.USERS).child(client.id!!).setValue(updateClient)
-                    Toast.makeText(this,"Command à étè confirmer", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Command à étè confirmer", Toast.LENGTH_SHORT).show()
                     alertDialog.dismiss()
                 }
-            } else Toast.makeText(this,"Empty", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
         }
         btnShowHistoryOfCommand.setOnClickListener {
             val intent = Intent(this, CommandHistory::class.java)
-            intent.putExtra(Constants.IDTOORDERS,client.id)
+            intent.putExtra(Constants.IDTOORDERS, client.id)
             startActivity(intent)
         }
         alertDialog.setView(view)
@@ -139,31 +146,43 @@ class Home : AppCompatActivity() , Listener{
     @SuppressLint("MissingInflatedId")
     override fun paidOrder(client: Client) {
         val firebase = Firebase.database
-        val firebaseDatabase  = firebase.getReference(Constants.PAIMENTS).child(client.id!!).push()
-        val alertDialog = AlertDialog.Builder(this,R.style.bottomSheetStyle).create()
-        val view = layoutInflater.inflate(R.layout.alert_paid,null)
+        val firebaseDatabase = firebase.getReference(Constants.PAIMENTS).child(client.id!!).push()
+        val alertDialog = AlertDialog.Builder(this, R.style.bottomSheetStyle).create()
+        val view = layoutInflater.inflate(R.layout.alert_paid, null)
         val editTextpaiment = view.findViewById<AppCompatEditText>(R.id.editTextPaiment)
         val btnPaiment = view.findViewById<Button>(R.id.btnPaiment)
         val btnShowHistoryOfCommand = view.findViewById<Button>(R.id.btnShowHistoryOfPaiment)
         btnPaiment.setOnClickListener {
-            if (editTextpaiment.text!!.isNotBlank()){
+            if (editTextpaiment.text!!.isNotBlank()) {
                 val newTotal = client.total!! - editTextpaiment.text.toString().toDouble()
-                if (newTotal > 0){
-                    val time = "${LocalDate.now().year}/${LocalDate.now().monthValue}/${LocalDate.now().dayOfMonth} ${LocalDateTime.now().hour+1}:${LocalDateTime.now().minute}:${LocalDateTime.now().second}"
-                    val paiment = Paiment(firebaseDatabase.key.toString() , editTextpaiment.text.toString().toDouble() , time)
+                if (newTotal > 0) {
+                    val time =
+                        "${LocalDate.now().year}/${LocalDate.now().monthValue}/${LocalDate.now().dayOfMonth} ${LocalDateTime.now().hour + 1}:${LocalDateTime.now().minute}:${LocalDateTime.now().second}"
+                    val paiment = Paiment(
+                        firebaseDatabase.key.toString(),
+                        editTextpaiment.text.toString().toDouble(),
+                        time
+                    )
                     firebaseDatabase.setValue(paiment).addOnSuccessListener {
-                        val updateClient = Client(client.id!!,client.name!!,client.price!!,newTotal,client.phone!!)
-                        firebase.getReference(Constants.USERS).child(client.id!!).setValue(updateClient)
-                        Toast.makeText(this,"Paiment à étè bien", Toast.LENGTH_SHORT).show()
+                        val updateClient = Client(
+                            client.id!!,
+                            client.name!!,
+                            client.price!!,
+                            newTotal,
+                            client.phone!!
+                        )
+                        firebase.getReference(Constants.USERS).child(client.id!!)
+                            .setValue(updateClient)
+                        Toast.makeText(this, "Paiment à étè bien", Toast.LENGTH_SHORT).show()
                         alertDialog.dismiss()
                     }
                 } else Toast.makeText(this, "SVP Vérifier votre montant", Toast.LENGTH_SHORT).show()
 
-            } else Toast.makeText(this,"Empty", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
         }
         btnShowHistoryOfCommand.setOnClickListener {
             val intent = Intent(this, PaimentHistory::class.java)
-            intent.putExtra(Constants.IDTOPAIMENT,client.id)
+            intent.putExtra(Constants.IDTOPAIMENT, client.id)
             startActivity(intent)
         }
         alertDialog.setView(view)
@@ -175,8 +194,8 @@ class Home : AppCompatActivity() , Listener{
         val alertDialog = AlertDialog.Builder(this@Home)
         alertDialog.setTitle("êtes-vous sûr !?")
         alertDialog.setMessage("Exit")
-        alertDialog.setPositiveButton("Oui"){ _ , _ -> this.finish() }
-        alertDialog.setNegativeButton("Non"){_ , _ -> alertDialog.setOnDismissListener { it.dismiss() } }
+        alertDialog.setPositiveButton("Oui") { _, _ -> this.finish() }
+        alertDialog.setNegativeButton("Non") { _, _ -> alertDialog.setOnDismissListener { it.dismiss() } }
         alertDialog.show()
     }
 

@@ -20,6 +20,7 @@
         android:iconifiedByDefault="false"
         app:queryHint="Enter quelle que chose ..." />
 
+    <!--
     <HorizontalScrollView
         android:id="@+id/myScrollView"
         android:layout_below="@id/mySearchView"
@@ -70,10 +71,11 @@
         </com.google.android.material.chip.ChipGroup>
 
     </HorizontalScrollView>
+    -->
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerFrameLayout"
-        android:layout_below="@id/myScrollView"
+        android:layout_below="@id/mySearchView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         app:shimmer_auto_start="true">
@@ -94,7 +96,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRV"
-        android:layout_below="@id/myScrollView"
+        android:layout_below="@id/mySearchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

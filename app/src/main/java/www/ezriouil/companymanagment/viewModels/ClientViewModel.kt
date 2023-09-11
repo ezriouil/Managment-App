@@ -12,7 +12,7 @@ class ClientViewModel : ViewModel() {
 
     private val dataBase = DataBase()
 
-    fun allData() : LiveData<MutableList<Client>>{
+    fun allData(): LiveData<MutableList<Client>> {
         val mutableLiveData = MutableLiveData<MutableList<Client>>()
         dataBase.reloadDataFromFireBase().observeForever { myData ->
             mutableLiveData.value = myData
@@ -20,7 +20,7 @@ class ClientViewModel : ViewModel() {
         return mutableLiveData
     }
 
-    fun observeData(id:String) : LiveData<MutableList<Paiment>>{
+    fun observeData(id: String): LiveData<MutableList<Paiment>> {
         val mutableLiveData = MutableLiveData<MutableList<Paiment>>()
         dataBase.reloadDataOfPaiment(id).observeForever {
             mutableLiveData.value = it
@@ -28,7 +28,7 @@ class ClientViewModel : ViewModel() {
         return mutableLiveData
     }
 
-    fun observeDataOfOrders(id:String) : LiveData<MutableList<Order>>{
+    fun observeDataOfOrders(id: String): LiveData<MutableList<Order>> {
         val mutableLiveData = MutableLiveData<MutableList<Order>>()
         dataBase.reloadDataOfOrders(id).observeForever {
             mutableLiveData.value = it

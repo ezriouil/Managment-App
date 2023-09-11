@@ -1,10 +1,10 @@
 package www.ezriouil.companymanagment.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import www.ezriouil.companymanagment.R
 
 class ScreenAnim : AppCompatActivity() {
@@ -14,9 +14,9 @@ class ScreenAnim : AppCompatActivity() {
         supportActionBar?.hide()
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            val intent = Intent(this,Home::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
             this@ScreenAnim.finish()
-        },6500)
+        }, 3000)
     }
 }

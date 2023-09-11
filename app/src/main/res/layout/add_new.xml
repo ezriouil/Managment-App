@@ -1,97 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.activities.AddNew">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:text="Ajouter"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
+
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nom Et Prénom"
         android:layout_margin="10sp"
-        app:startIconDrawable="@drawable/user_icon"
+        android:animateLayoutChanges="true"
+        android:hint="Nom Et Prénom"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
         app:counterEnabled="true"
         app:counterMaxLength="25"
-        app:startIconTint="@color/black"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxCornerRadiusBottomEnd="20dp"
-        android:animateLayoutChanges="true"
         app:endIconMode="clear_text"
-        app:boxStrokeColor="@color/black"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:startIconDrawable="@drawable/user_icon"
+        app:startIconTint="@color/black">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextClientUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:inputType="text"
             android:maxLength="25"
             android:maxLines="1"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Prix"
-        app:boxStrokeColor="@color/black"
         android:layout_margin="10sp"
-        app:startIconDrawable="@drawable/price_icon"
+        android:animateLayoutChanges="true"
+        android:hint="Prix"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxStrokeColor="@color/black"
         app:counterEnabled="true"
         app:counterMaxLength="5"
-        app:startIconTint="@color/black"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxCornerRadiusBottomEnd="20dp"
-        android:animateLayoutChanges="true"
         app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:startIconDrawable="@drawable/price_icon"
+        app:startIconTint="@color/black">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextClientPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:inputType="numberDecimal"
-            android:maxLines="1"
             android:maxLength="25"
+            android:maxLines="1"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Téléphone"
         android:layout_margin="10sp"
+        android:animateLayoutChanges="true"
+        android:hint="Téléphone"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeColor="@color/black"
-        app:startIconDrawable="@drawable/phone"
         app:counterEnabled="true"
         app:counterMaxLength="10"
-        app:startIconTint="@color/black"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxCornerRadiusBottomEnd="20dp"
-        android:animateLayoutChanges="true"
         app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:startIconDrawable="@drawable/phone"
+        app:startIconTint="@color/black">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextClientTel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:inputType="numberDecimal"
             android:maxLength="10"
             android:maxLines="1"
+            android:textColor="@color/black"
             android:textSize="20sp"
             tools:ignore="DuplicateIds" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonClientBtnAjouter"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/bg_dialog_theme"
         android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:text="ajouter"/>
+        android:text="ajouter"
+        android:textColor="@color/white" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

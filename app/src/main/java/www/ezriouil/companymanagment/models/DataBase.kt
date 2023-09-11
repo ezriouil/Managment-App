@@ -9,8 +9,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import www.ezriouil.companymanagment.Constants
 
-class DataBase
-{
+class DataBase {
     private val database = Firebase.database
 
     fun reloadDataFromFireBase(): LiveData<MutableList<Client>> {
@@ -31,35 +30,39 @@ class DataBase
         return mutableLiveData
     }
 
-    fun reloadDataOfPaiment(id:String):LiveData<MutableList<Paiment>>{
+    fun reloadDataOfPaiment(id: String): LiveData<MutableList<Paiment>> {
         val mutableLiveData = MutableLiveData<MutableList<Paiment>>()
-        database.getReference(Constants.PAIMENTS).child(id).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = mutableListOf<Paiment>()
-                for (item in snapshot.children){
-                    val itemData = item.getValue(Paiment::class.java)
-                    data.add(itemData!!)
+        database.getReference(Constants.PAIMENTS).child(id)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = mutableListOf<Paiment>()
+                    for (item in snapshot.children) {
+                        val itemData = item.getValue(Paiment::class.java)
+                        data.add(itemData!!)
+                    }
+                    mutableLiveData.value = data
                 }
-                mutableLiveData.value = data
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
         return mutableLiveData
     }
 
-    fun reloadDataOfOrders(id:String):LiveData<MutableList<Order>>{
+    fun reloadDataOfOrders(id: String): LiveData<MutableList<Order>> {
         val mutableLiveData = MutableLiveData<MutableList<Order>>()
-        database.getReference(Constants.ORDERS).child(id).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = mutableListOf<Order>()
-                for (item in snapshot.children){
-                    val itemData = item.getValue(Order::class.java)
-                    data.add(itemData!!)
+        database.getReference(Constants.ORDERS).child(id)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = mutableListOf<Order>()
+                    for (item in snapshot.children) {
+                        val itemData = item.getValue(Order::class.java)
+                        data.add(itemData!!)
+                    }
+                    mutableLiveData.value = data
                 }
-                mutableLiveData.value = data
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
         return mutableLiveData
     }
 

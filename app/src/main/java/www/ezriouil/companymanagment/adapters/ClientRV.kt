@@ -27,7 +27,7 @@ class ClientRV(context: Context,private val listener: Listener) : RecyclerView.A
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: VHClient, position: Int) {
         list[holder.adapterPosition].let {
-            holder.binding.itemRVUserName.text = "   - Nom Et Prénom : ${it.name}"
+            holder.binding.itemRVUserName.text = "   - Utilisateur : ${it.name}"
             holder.binding.itemRVPrice.text = "   - Prix : ${it.price}"
             holder.binding.itemRVPhone.text = "   - Tel : ${it.phone}"
             holder.binding.itemRVTotal.text = "TOTALE\n${it.total.toString()} DH"

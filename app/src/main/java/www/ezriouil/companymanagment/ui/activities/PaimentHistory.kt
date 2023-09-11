@@ -1,7 +1,7 @@
 package www.ezriouil.companymanagment.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import www.ezriouil.companymanagment.Constants
 import www.ezriouil.companymanagment.adapters.PaimentRV
